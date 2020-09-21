@@ -7,7 +7,6 @@ const Timer = () => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(4);
   const [isOn, setIsOn] = useState(false);
-  let myInterval: NodeJS.Timer;
 
   const startTimer = () => setIsOn(true);
 
@@ -21,6 +20,8 @@ const Timer = () => {
   };
 
   useEffect(() => {
+    let myInterval: NodeJS.Timer;
+
     myInterval = setInterval(() => {
       if (isOn) {
         if (seconds > 0) {
