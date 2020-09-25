@@ -2,11 +2,24 @@ import React, { useState, useEffect } from 'react';
 
 import TimerScreen from './../../dumb/TimerScreen/TimerScreen';
 import TimerActions from './../../dumb/TimerActions/TimerActions';
+import TimerInput from '../../dumb/TimerInput/TimerInput';
 
 const Timer = () => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(4);
   const [isOn, setIsOn] = useState(false);
+  const [inputValue, setInputValue] = useState<number>(0);
+
+  const onChange: React.ChangeEventHandler = (
+    ev: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    ev.preventDefault();
+    const inputtedValue = parseFloat(ev.currentTarget.value);
+
+    inputtedValue 
+      ? setInputValue(inputtedValue)
+      : setInputValue(0)
+  }
 
   const startTimer = () => setIsOn(true);
 
@@ -49,6 +62,11 @@ const Timer = () => {
       className="timer-container"
       data-testid="timer-container"
     >
+      <TimerInput
+        value={inputValue}
+        onChange={onChange}
+        placeholder="put your route time in seconds"
+      />
       <TimerScreen
         minutes={minutes}
         seconds={seconds}
